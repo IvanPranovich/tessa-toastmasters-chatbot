@@ -16,9 +16,10 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
+
 - task: CopyFiles@2
   inputs:
-    contents: '**\bin\$(buildConfiguration)\**'
+    Contents: '**/bin/$(buildConfiguration)/**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
 - task: PublishBuildArtifacts@1
