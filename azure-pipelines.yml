@@ -18,8 +18,9 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    contents: 'TessaBot/bin/$(buildConfiguration)'
-    TargetFolder: '$(Build.ArtifactStagingDirectory'
+    contents: '**\bin\$(buildConfiguration)\**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    CleanTargetFolder: true
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
