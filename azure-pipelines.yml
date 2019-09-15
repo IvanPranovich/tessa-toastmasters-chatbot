@@ -11,6 +11,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  netCoreVersion: 'netcoreapp2.1'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
@@ -18,7 +19,7 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(TessaBot/bin/$(buildConfiguration))/'
+    rootFolderOrFile: './TessaBot/bin/$(buildConfiguration)/$(netCoreVersion)/'
     includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
