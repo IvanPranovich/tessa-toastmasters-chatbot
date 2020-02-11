@@ -11,9 +11,23 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  netCoreVersion: 'netcoreapp2.1'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: './TessaBot/bin/$(buildConfiguration)/$(netCoreVersion)/'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
 - task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'tessabotArtifact'
+    publishLocation: 'Container'
+    Parallel: false
