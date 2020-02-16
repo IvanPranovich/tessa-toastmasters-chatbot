@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TessaBot.Bots;
+using TessaBot.BotServices;
+using TessaBot.Configuration;
 
 namespace TessaBot
 {
@@ -35,6 +37,8 @@ namespace TessaBot
 
             // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
             services.AddTransient<IBot, EchoBot>();
+
+            services.AddBotServices<BotServicesConfiguration>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
