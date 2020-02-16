@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using TessaBot.Bots;
 using TessaBot.BotServices;
 using TessaBot.Configuration;
+using TessaBot.Dialogs;
+using TessaBot.Dialogs.Conversations;
 
 namespace TessaBot
 {
@@ -36,8 +38,10 @@ namespace TessaBot
             services.AddSingleton<IBotFrameworkHttpAdapter, AdapterWithErrorHandler>();
 
             // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
-            services.AddTransient<IBot, EchoBot>();
+            services.AddTransient<IBot, TessaBot<RootDialog>>();
 
+            services.AddSingleton<IStorage>(new MemoryStorage());
+            services.AddTessaDialogs();
             services.AddBotServices<BotServicesConfiguration>();
         }
 

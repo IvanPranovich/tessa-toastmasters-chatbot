@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TessaBot.BotServices\TessaBot.BotServices.csproj" />
+      <ProjectReference Include="..\TessaBot.Dialogs\TessaBot.Dialogs.csproj" />
     </ItemGroup>
 
 </Project>
