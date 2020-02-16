@@ -3,6 +3,7 @@
 //
 // Generated with Bot Builder V4 SDK Template for Visual Studio EchoBot v4.5.0
 
+using System.Linq;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -48,6 +49,15 @@ namespace TessaBot
             services.AddBotServices<BotServicesConfiguration>();
 
             AddAllBotApplicationInsights(services);
+            AddBotMiddlewares(services);
+        }
+
+        private void AddBotMiddlewares(IServiceCollection services)
+        {
+            services.AddSingleton<BotState, ConversationState>();
+            services.AddSingleton<BotState, UserState>();
+            services.AddSingleton<BotState, PrivateConversationState>();
+            services.AddSingleton(provider => new AutoSaveStateMiddleware(provider.GetServices<BotState>().ToArray()));
         }
 
         /// <summary>

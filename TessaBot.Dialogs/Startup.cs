@@ -10,6 +10,9 @@ namespace TessaBot.Dialogs
         public static IServiceCollection AddTessaDialogs(this IServiceCollection services)
         {
             services.AddSingleton<ConversationState>();
+            services.AddSingleton<UserState>();
+            services.AddSingleton<PrivateConversationState>();
+
             RegisterAllDialogs(services);
             
             return services;
