@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace TessaBot
 {
@@ -17,6 +18,15 @@ namespace TessaBot
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    var instrumentationKey = hostingContext.Configuration.GetSection("ApplicationInsights:InstrumentationKey");
+                    if (instrumentationKey != null)
+                    {
+                        logging.AddApplicationInsights(instrumentationKey.Value);
+                    }
+                });
+
     }
 }
