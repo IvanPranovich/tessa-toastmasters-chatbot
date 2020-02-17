@@ -24,6 +24,9 @@ namespace TessaBot
                     var instrumentationKey = hostingContext.Configuration.GetSection("ApplicationInsights:InstrumentationKey");
                     if (instrumentationKey != null)
                     {
+                        logging.AddConsole();
+                        logging.AddDebug();
+                        logging.AddAzureWebAppDiagnostics();
                         logging.AddApplicationInsights(instrumentationKey.Value);
                     }
                 });

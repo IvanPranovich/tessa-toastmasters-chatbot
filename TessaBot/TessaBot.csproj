@@ -6,10 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Bot.Builder.Integration.ApplicationInsights.Core" Version="4.7.2" />
     <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.7.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.12.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.9.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.AzureAppServices" Version="3.1.1" />
   </ItemGroup>
 
     <ItemGroup>
