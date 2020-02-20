@@ -13,5 +13,8 @@
         public const string QnaMakerKnowledgeBaseId = "KnowledgeBaseId";
         
         #endregion
+
+        public const string StorageAccount = "StorageAccount";
+        public const string StorageAccountBlobContainerName = "StorageAccountBlobContainerName";
     }
 }

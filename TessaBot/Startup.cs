@@ -10,11 +10,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.ApplicationInsights;
+using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Integration.ApplicationInsights.Core;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.WindowsAzure.Storage;
 using TessaBot.Bots;
 using TessaBot.BotServices;
 using TessaBot.Configuration;
@@ -44,7 +46,12 @@ namespace TessaBot
             // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
             services.AddTransient<IBot, TessaBot<RootDialog>>();
 
-            services.AddSingleton<IStorage>(new MemoryStorage());
+            var cloudStorageAccountConnectionString = Configuration.GetConnectionString(ConfigurationConstants.StorageAccount) ??
+                                                      throw new ConfigurationException(ConfigurationConstants.StorageAccount);
+            var blobContainerName = Configuration.GetSection(ConfigurationConstants.StorageAccountBlobContainerName).Get<string>();
+            var cloudStorageAccount = CloudStorageAccount.Parse(cloudStorageAccountConnectionString);
+            var storage = new AzureBlobStorage(cloudStorageAccount, blobContainerName);
+            services.AddSingleton<IStorage>(storage);
             services.AddTessaDialogs();
             services.AddBotServices<BotServicesConfiguration>();
 
